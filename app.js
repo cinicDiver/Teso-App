@@ -10,3 +10,15 @@ var firebaseConfig = {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
+
+  var firestore = firebase.firestore();
+  const docRef = firestore.doc("tesoreria/afiliados");
+  const uName = document.querySelector("#uName");
+  const uPass = document.querySelector("#pwLine");
+  const inBtn = document.querySelector("#btnEntrar");
+
+  inBtn.addEventListener("click", function(){
+      const userIn = uName.value;
+      console.log("Ingresando al usuario: "+userIn); 
+  })
+
