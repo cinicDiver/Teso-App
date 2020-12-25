@@ -10,14 +10,17 @@ var firebaseConfig = {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
-  var firestore = firebase.firestore();
-  const docRef = firestore.doc("tesoreria/afiliados");
-  const uName = document.querySelector("#uName");
-  const uPass = document.querySelector("#pwLine");
-  const inBtn = document.querySelector("#btnEntrar");
 
-  inBtn.addEventListener("click", function(){
+  const uName = document.getElementById("uName");
+  const uPass = document.getElementById("pwLine");
+  const inBtn = document.getElementById("btnEntrar");
+
+  inBtn.addEventListener("click", e =>{
       const userIn = uName.value;
-      console.log("Ingresando al usuario: "+userIn); 
+      const userPw = uPass.value;
+      const auth = firebase.auth();
+      console.log("Ingresando al usuario: "+userIn);
+      const promise = auth.signinwithemailandpassword(userIn,userPw);
+      promise.catch(e => console.log(e.message()));
   })
 
