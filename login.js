@@ -37,7 +37,7 @@ inBtn.addEventListener("click", e =>{
 
 firebase.auth().onAuthStateChanged(firebaseUser =>{
   if(firebaseUser){
-    var nxtUrl = "./content.html/?user="+uName;
+    var nxtUrl = "./content.html?user="+userIn;
     window.location.href=nxtUrl;
   }else{
     alert("No se encuentra loggeado.")

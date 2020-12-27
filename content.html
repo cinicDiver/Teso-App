@@ -4,10 +4,49 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
-        <link rel="stylesheet" href="./styling/main.css">
+        <link rel="stylesheet" href="./styling/navbar.css">
+        <link rel="stylesheet" href="./styling/main.scss">
     </head>
     <body>
-        <h1>Bienvenida</h1>
+        
+        <nav class="navbar">
+            <div class="container">
+          
+              <div class="navbar-header">
+                <button class="navbar-toggler" data-toggle="open-navbar1">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </button>
+                <a href="#">
+                  <h4>Tesoreria<span>Fire</span></h4>
+                </a>
+              </div>
+          
+              <div class="navbar-menu" id="open-navbar1">
+                <ul class="navbar-nav">
+                  <li class="active"><a href="#">Inicio</a></li>
+                  <li class="navbar-dropdown">
+                    <a href="#" class="dropdown-toggler" data-dropdown="my-dropdown-id">
+                      Visualizaciones <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown" id="my-dropdown-id">
+                      <li><a href="#">Cuentas</a></li>
+                      <li><a href="#">Pagos</a></li>
+                      <li class="separator"></li>
+                      <li><a href="#">Deudas</a></li>
+                      <li class="separator"></li>
+                      <li><a href="#">Detalles</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#">About</a></li>
+                  <li><a href="#">Contact</a></li>
+                  <li><a href="#">Salir</a></li>
+                </ul>
+              </div>
+            </div>
+        </nav>
+
         <script src="./util.js"></script>
     </body>
 </html>
