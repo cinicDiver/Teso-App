@@ -22,5 +22,5 @@ var firebaseConfig = {
       console.log("Ingresando al usuario: "+userIn);
       const promise = auth.signinwithemailandpassword(userIn,userPw);
       promise.catch(e => console.log(e.message()));
-  })
+  });
 
