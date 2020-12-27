@@ -26,9 +26,8 @@ input{
 
 .logDiv{
     position:relative;
-    align:center;
     top:30%;
-    border:1px solid color: #fff;;
+    border:1px solid color #fff;
     border-radius: 5px;
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
