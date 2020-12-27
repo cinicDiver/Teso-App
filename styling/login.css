@@ -5,20 +5,24 @@ button{
     width:50%;
 }
 
+form{
+    
+}
+
 .inBtn{
     cursor:pointer;
     background:#FF7A00;
 }
 .inBtn:hover{
-    background: #FF6600;
+    background: #FF4B00;
  }
 
 .delBtn{
     cursor: pointer;
-    background: grey;
+    background: darkgray;
 }
 .delBtn:hover{
-    background: darkgray;
+    background: grey;
 }
 .logDiv{
     top:50%;
