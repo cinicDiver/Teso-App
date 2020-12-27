@@ -37,6 +37,7 @@ inBtn.addEventListener("click", e =>{
 
 firebase.auth().onAuthStateChanged(firebaseUser =>{
   if(firebaseUser){
+    const userIn = uName.value;
     var nxtUrl = "./content.html?user="+userIn;
     window.location.href=nxtUrl;
   }else{
