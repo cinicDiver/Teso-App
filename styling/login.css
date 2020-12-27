@@ -1,17 +1,25 @@
+button{
+    padding:10px 15px;
+    color: #fff;
+    border:0;
+    width:50%;
+}
+
 .inBtn{
     cursor:pointer;
     background:#FF7A00;
-}:hover{
+}
+.inBtn:hover{
     background: #FF6600;
  }
 
 .delBtn{
     cursor: pointer;
-    color: grey;
-}:hover{
+    background: grey;
+}
+.delBtn:hover{
     background: darkgray;
 }
-
 .logDiv{
     top:50%;
     left:50%;
