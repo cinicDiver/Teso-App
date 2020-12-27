@@ -132,7 +132,7 @@
 	 padding: 0.5rem 1rem;
 }
  .navbar .navbar-menu .navbar-nav > li > a:hover {
-	 color: #FF4B00;
+	 color: #FF7A00;
 }
  @media (max-width: 768px) {
 	 .navbar .navbar-menu .navbar-nav > li > a {
@@ -168,8 +168,14 @@
 	 padding: 0.25rem 1rem;
 	 display: block;
 }
+.navbar .navbar-menu .navbar-nav .navbar-dropdown .dropdown li a:hover{
+	color:#FF7A00;
+}
  .navbar .navbar-menu .navbar-nav .navbar-dropdown .dropdown.show {
 	 display: block !important;
+}
+.navbar .navbar-menu .navbar-nav .navbar-dropdown .dropdown li.active a {
+	color:#FF7A00;
 }
  .navbar .navbar-menu .navbar-nav .dropdown > .separator {
 	 height: 1px;
