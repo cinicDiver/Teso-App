@@ -58,7 +58,7 @@ function handleSmallScreens() {
     }
 
     navbarMenu.style.display = 'flex'
-  })
-}
+  });
+};
 
-handleSmallScreens()
+handleSmallScreens();
