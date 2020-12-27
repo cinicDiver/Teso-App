@@ -1,15 +1,15 @@
-button{
+.button{
     padding:10px 15px;
     color: #fff;
     border:0;
     width:50%;
 }
 
-form{
+.form{
     padding:40px;
 }
 
-input{
+.input{
     padding:10px 15px;
     display: block;
 }
@@ -22,13 +22,6 @@ input{
     background: #FF4B00;
  }
 
-.delBtn{
-    cursor: pointer;
-    background: darkgray;
-}
-.delBtn:hover{
-    background: grey;
-}
 .logDiv{
     top:50%;
     left:50%;
