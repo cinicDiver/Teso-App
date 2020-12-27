@@ -36,11 +36,11 @@ inBtn.addEventListener("click", e =>{
 });
 
 firebase.auth().onAuthStateChanged(firebaseUser =>{
+  const userIn = uName.value;
   if(firebaseUser){
-    const userIn = uName.value;
     var nxtUrl = "./content.html?user="+userIn;
     window.location.href=nxtUrl;
-  }else{
+  }else if (userIn != null){
     alert("No se encuentra loggeado.")
   }
 });
