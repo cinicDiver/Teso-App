@@ -1,4 +1,20 @@
+.inBtn{
+    cursor:pointer;
+    background:#FF7A00;
+}:hover{
+    background: #FF6600;
+ }
+
+.delBtn{
+    cursor: pointer;
+    color: grey;
+}:hover{
+    background: darkgray;
+}
+
 .logDiv{
+    top:50%;
+    left:50%;
     border:1px solid black;
     border-radius: 5px;
     font-family: Arial, Helvetica, sans-serif;
