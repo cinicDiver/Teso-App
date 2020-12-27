@@ -10,17 +10,37 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+function validateEmail(email){
+  var re = /\S+@\S+\.\S+/;
+  return re.test(email);
+};
+
 
 const uName = document.getElementById("uName");
 const uPass = document.getElementById("pwLine");
 const inBtn = document.getElementById("btnEntrar");
 
 inBtn.addEventListener("click", e =>{
-    const userIn = uName.value;
-    const userPw = uPass.value;
-    const auth = firebase.auth();
-    console.log("Ingresando al usuario: "+userIn);
+  const userIn = uName.value;
+  const userPw = uPass.value;
+  const auth = firebase.auth();
+  console.log("Ingresando al usuario: "+userIn);
+  if (validateEmail(userIn)){
     const promise = auth.signInWithEmailAndPassword(userIn,userPw);
-    promise.catch(e => console.log(e.message()));
+    promise.catch(e => {
+      alert(e.message);
+    });
+  }else{
+    alert("El usuario ingresado no es válido.")
+  };
+});
+
+firebase.auth().onAuthStateChanged(firebaseUser =>{
+  if(firebaseUser){
+    var nxtUrl = "./content.html/?user="+uName;
+    window.location.href=nxtUrl;
+  }else{
+    alert("No se encuentra loggeado.")
+  }
 });
 
