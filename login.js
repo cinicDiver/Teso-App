@@ -44,11 +44,4 @@ firebase.auth().onAuthStateChanged(firebaseUser =>{
   }
 });
 
-const logout = document.getElementById("logOutB")
-logout.addEventListener('click',e =>{
-    e.preventDefault();
-    auth.signOut().then(()=>{
-      window.location.href="./index.html"
-    })
-});
 
