@@ -1,8 +1,5 @@
-button{
-    padding:10px 15px;
-    color: #fff;
-    border:0;
-    width:100%;
+h1{
+    color:grey
 }
 
 form{
@@ -12,20 +9,26 @@ form{
 input{
     padding:10px 15px;
     display: block;
+    width:100%;
+    border:1px solid #EAE7E5;
 }
 
 .inBtn{
     cursor:pointer;
     background:#FF7A00;
+    border:0;
+    width:100%;
+    color: #fff;
 }
 .inBtn:hover{
     background: #FF4B00;
  }
 
 .logDiv{
-    top:50%;
-    left:50%;
-    border:1px solid black;
+    position:relative;
+    align:center;
+    top:30%;
+    border:1px solid color: #fff;;
     border-radius: 5px;
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
