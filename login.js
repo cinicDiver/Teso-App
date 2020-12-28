@@ -20,7 +20,7 @@ const uName = document.getElementById("uName");
 const uPass = document.getElementById("pwLine");
 const inBtn = document.getElementById("btnEntrar");
 
-inBtn.addEventListener("click", e =>{
+var inFunc = function(event) {
   const userIn = uName.value;
   const userPw = uPass.value;
   const auth = firebase.auth();
@@ -33,16 +33,23 @@ inBtn.addEventListener("click", e =>{
   }else{
     alert("El usuario ingresado no es válido.")
   };
+};
+
+inBtn.addEventListener("click", inFunc, false);
+window.addEventListener("keyup", e =>{
+  if (e.key==='Enter'){
+    e.preventDefault();
+    inBtn.click();
+  }
 });
+
 
 firebase.auth().onAuthStateChanged(firebaseUser =>{
   const userIn = uName.value;
   if(firebaseUser){
-    var nxtUrl = "./content.html?user="+userIn;
+    var nxtUrl = "./home.html?user="+userIn;
     window.location.href=nxtUrl;
   }else if (userIn != null){
     alert("No se encuentra loggeado.")
   }
 });
-
-

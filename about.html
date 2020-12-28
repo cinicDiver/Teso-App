@@ -26,20 +26,9 @@
           
               <div class="navbar-menu" id="open-navbar1">
                 <ul class="navbar-nav">
-                  <li class="active"><a href="#">Inicio</a></li>
-                  <li class="navbar-dropdown">
-                    <a href="#" class="dropdown-toggler" data-dropdown="my-dropdown-id">
-                      Visualizaciones <i class="fa fa-angle-down"></i>
-                    </a>
-                    <ul class="dropdown" id="my-dropdown-id">
-                      <li><a href="#">Cuentas</a></li>
-                      <li><a href="#">Pagos</a></li>
-                      <li><a href="#">Deudas</a></li>
-                      <li><a href="#">Detalles</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="#">Contacto</a></li>
-                  <li><a href="#">About</a></li>
+                  <li id='home' onclick="move(this.id)"><a href="#">Inicio</a></li>
+                  <li id='contact' onclick="move(this.id)"><a href="#">Contacto</a></li>
+                  <li class="active" id='about' onclick="move(this.id)"><a href="#">About</a></li>
                   <li><a href="#" id="logOutB">Salir</a></li>
                 </ul>
               </div>

@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>Tesoreria Fire</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-auth.js"></script>
+        <link rel="stylesheet" href="./styling/navbar.css">
+        <link rel="stylesheet" href="./styling/main.css">
+    </head>
+    <body>
+        
+        <nav class="navbar">
+            <div class="container">
+          
+              <div class="navbar-header">
+                <button class="navbar-toggler" data-toggle="open-navbar1">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </button>
+                <a href="#">
+                  <h4>Tesoreria<span>FIRE</span></h4>
+                </a>
+              </div>
+          
+              <div class="navbar-menu" id="open-navbar1">
+                <ul class="navbar-nav">
+                  <li class="active" id='home' onclick="move(this.id)"><a href="#">Inicio</a></li>
+                  <li id='contact' onclick="move(this.id)"><a href="#">Contacto</a></li>
+                  <li id='about' onclick="move(this.id)"><a href="#">About</a></li>
+                  <li><a href="#" id="logOutB">Salir</a></li>
+                </ul>
+              </div>
+            </div>
+        </nav>
+
+        <div id=''>
+
+        </div>
+
+        <script src="./util.js"></script>
+        <script src="./logout.js"></script>
+    </body>
+</html>
