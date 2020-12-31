@@ -32,7 +32,7 @@ function hideUserAddWin(){
 }
 
 function addUser(){
-  console.log('User added.')
+  alert('User added.')
 }
 
 var transAddWin = document.getElementById('transAddWin');
@@ -46,5 +46,5 @@ function hideTransAddWin(){
 }
 
 function addTrans(){
-  console.log('Transaction added.')
+  alert('Transaction added.')
 }
