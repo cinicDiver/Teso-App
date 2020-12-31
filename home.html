@@ -35,11 +35,53 @@
             </div>
         </nav>
 
-        <div id=''>
-
+        <div class='dashboard'>
+          <div class='dashboard-resumen'>
+            <div class='dashboard-resumen-estado' id='resumenDiv'>
+              <div class='widget-heading'>Estado</div>
+              <div class='widget-subheading'>Afiliación:</div>
+              <div class='widget-content-string' id='afilState'></div>
+              <div class='widget-subheading'>Cuentas:</div>
+              <div class='widget-content-string' id='cashState'></div>
+            </div>
+            <div class='dashboard-resumen-caja' id='cajaDiv'>
+              <div class='widget-heading'>Caja del club</div>
+              <div class='widget-subheading'>Ingresos:</div>
+              <div class='widget-content-string' id='cashIn'></div>
+              <div class='widget-subheading'>Egresos:</div>
+              <div class='widget-content-string' id='cashOut'></div>
+              <div class='widget-subheading'>Balance:</div>
+              <div class='widget-content-string' id='cashFLow'></div>
+            </div>
+            <div class='dashboard-resumen-saldos' id='saldosDiv'>
+              <div class='widget-heading'>Saldos</div>
+              <div class='widget-subheading'>A favor:</div>
+              <div class='widget-content-string' id='favorCash'></div>
+              <div class='widget-subheading'>En Contra:</div>
+              <div class='widget-content-string' id='againstCash'></div>
+            </div>
+            <div class='dashboard-resumen-acciones' id='accionesDiv'>
+              <div class='widget-heading'>Acciones</div>
+              <button>Agregar Transacciones</button>
+              <button>Agregar Usuarios</button>
+            </div>
+          </div>
+          <div class='dashboard-detalles'>
+            <div class='dashboard-detalles-transacciones' id='scroll-wrapper'>
+              <div class='widget-heading'>Transacciones:</div>
+              <div class="dashboard-detalles-transacciones-scroll" id='scroll-content'>
+                <div><table><th>ID</th><th>Usuario</th><th>Concepto</th><th>Valor</th><th>Registro</th><th>Validación</th><th>Notas</th></table></div>
+                <div>:D</div>
+              </div>
+            </div>
+            <div class='dashboard-detalles-deudas'>
+              <div class='widget-heading'>Deudas:</div>
+            </div>
+          </div>
         </div>
 
         <script src="./util.js"></script>
+        <script src="./app.js"></script>
         <script src="./logout.js"></script>
     </body>
 </html>

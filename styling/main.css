@@ -1,3 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
 body{
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Roboto', sans-serif;
+}
+
+button{
+    cursor:pointer;
+    background:#FF7A00;
+    border:0;
+    width:200px;
+    color: #fff;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 5px;
+    border-radius: 5px;
+    margin-top: 2px;
+}:hover{
+    background: #FF4B00;
+}
+
+th{
+    padding-right:20px;
+    border-top: 1px solid white;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color:white;
+    background: #FF7A00;
+    padding-left:2px;
+    font-weight: normal;
+}
+
+.hidden{
+    visibility: hidden;
+}
+
+.widget-heading{
+    font-size: medium;
+    color:grey;
+}
+
+.widget-subheading{
+    font-size: small;
+    color:grey;
+    margin-left: 5px;
+}
+
+.dashboard-resumen{
+    box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    border-radius: 5px;
+    display: inline-flex;
+    width: 100%;
+    margin:10px 5px;
+    padding: 5px;
+}
+.dashboard-resumen-estado{
+    width:33%;
+
+}
+
+.dashboard-resumen-caja{
+    width:33%;
+
+}
+
+.dashboard-resumen-saldos{
+    width:33%;
+
+}
+
+.dashboard-resumen-acciones{
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+}
+
+.dashboard-detalles{
+    box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    border-radius: 5px;
+    width: 100%;
+    margin:5px;
+    padding: 5px;
+    display: inline-flex;
+}
+
+.dashboard-detalles-transacciones{
+    width:70%;
+}
+
+#scroll-wrapper{
+    position: relative;
+    overflow: auto;
+    height: 300px;
+}
+
+#scroll-content{
+    padding:2px;
 }

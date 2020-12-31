@@ -35,8 +35,6 @@
 	 padding: 1.15rem 1rem;
 	 box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.035);
 	 background-color: #fff;
-	/* |----------------------------------- | Start navbar logo or brand etc.. |----------------------------------- */
-	/* |----------------------------------- | Start navbar menu |----------------------------------- */
 }
  @media (min-width: 576px) {
 	 .navbar .container {

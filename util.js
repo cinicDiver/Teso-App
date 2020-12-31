@@ -16,8 +16,19 @@ handleSmallScreens();
 
 // Move between pages
 function move(clickedElementID){
-  var actUrl = new URL(window.location.href);
-  var userParam = actUrl.searchParams.get('user');
-  var nxthref  = './'+clickedElementID+'.html?user='+userParam;
+  var nxthref  = './'+clickedElementID+'.html';
   window.location.href=nxthref;
 };
+
+function hideElmnt(elmntID){
+  const elmnt2Hide = document.getElementById('elmntID');
+  if (elmnt2Hide.classList.contains('hidden')){
+    console.log('Unhidding...');
+    elmnt2Hide.classList.remove('hidden');
+  }else{
+    console.log('Hidding...');
+    elmnt2Hide.classList.add('hidden');
+  };
+  
+};
+
