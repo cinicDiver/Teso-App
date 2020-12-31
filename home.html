@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
         <link rel="stylesheet" href="./styling/navbar.css">
         <link rel="stylesheet" href="./styling/main.css">
     </head>
@@ -82,8 +83,8 @@
         <div class='addInWin'id='userAddWin'>
           <div class='addInWin-header'>Agregar Usuario<span class='addInWIn-close' onclick="hideUserAddWin();">X</span></div>
           <div class='addInWin-content'>
-              <input type='email' placeholder="Correo electrónico">
-              <input type='text' placeholder="Contraseña">
+              <input type='email' placeholder="Correo electrónico" id='newUserEmail'>
+              <input type='text' placeholder="Contraseña" id='newUserPassword'>
               <button id='userInBtn' onclick="addUser();">Agregar</button>
           </div>
         </div>
@@ -91,7 +92,7 @@
         <div class='addInWin'id='transAddWin'>
           <div class='addInWin-header'>Agregar Transaccion<span class='addInWIn-close' onclick="hideTransAddWin();">X</span></div>
           <div class='addInWin-content'>
-              <input type='email' placeholder="ID de Usuario">
+              <input type='text' placeholder="ID de Usuario">
               <input type='text' placeholder="Concepto">
               <input type='text' placeholder="Valor">
               <input type='date' placeholder="Fecha">
@@ -100,9 +101,9 @@
               <button id='transInBtn' onclick="addTrans();">Agregar</button>
           </div>
         </div>
-
+        
+        <script src="./logout.js"></script>
         <script src="./util.js"></script>
         <script src="./app.js"></script>
-        <script src="./logout.js"></script>
     </body>
 </html>

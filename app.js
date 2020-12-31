@@ -31,8 +31,23 @@ function hideUserAddWin(){
   userAddWin.style.display = 'none';
 }
 
+function validateEmail(email){
+  var re = /\S+@\S+\.\S+/;
+  return re.test(email);
+};
+
 function addUser(){
-  alert('User added.')
+  var newUserEmail=document.getElementById('newUserEmail').value;
+  var newUserPassword=document.getElementById('newUserPassword').value;
+  var adminAcc = firebase.auth().currentUser;
+  if (validateEmail(newUserEmail)){  
+    //firebase.auth().createUserWithEmailAndPassword(newUserEmail,newUserPassword);
+    firebase.auth().updateCurrentUser(adminAcc);
+    alert('User added.');
+  }
+  else{
+    alert('Email de usuario invalido.');
+  }
 }
 
 var transAddWin = document.getElementById('transAddWin');
