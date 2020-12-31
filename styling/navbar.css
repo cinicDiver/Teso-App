@@ -35,6 +35,8 @@
 	 padding: 1.15rem 1rem;
 	 box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.035);
 	 background-color: #fff;
+	 border-bottom-left-radius: 5px;
+	 border-bottom-right-radius: 5px;
 }
  @media (min-width: 576px) {
 	 .navbar .container {

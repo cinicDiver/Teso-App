@@ -62,21 +62,42 @@
             </div>
             <div class='dashboard-resumen-acciones' id='accionesDiv'>
               <div class='widget-heading'>Acciones</div>
-              <button>Agregar Transacciones</button>
-              <button>Agregar Usuarios</button>
+              <button onclick="showTransAddWin();">Agregar Transacciones</button>
+              <button onclick="showUserAddWin();">Agregar Usuarios</button>
             </div>
           </div>
           <div class='dashboard-detalles'>
-            <div class='dashboard-detalles-transacciones' id='scroll-wrapper'>
+            <div class='dashboard-detalles-transacciones' >
               <div class='widget-heading'>Transacciones:</div>
-              <div class="dashboard-detalles-transacciones-scroll" id='scroll-content'>
-                <div><table><th>ID</th><th>Usuario</th><th>Concepto</th><th>Valor</th><th>Registro</th><th>Validación</th><th>Notas</th></table></div>
-                <div>:D</div>
+              <div class="dashboard-detalles-transacciones-scroll" id='scroll-wrapper'>
+                <div id='scroll-content'><table><th>ID</th><th>Usuario</th><th>Concepto</th><th>Valor</th><th>Registro</th><th>Validación</th><th>Notas</th></table></div>
               </div>
             </div>
             <div class='dashboard-detalles-deudas'>
               <div class='widget-heading'>Deudas:</div>
             </div>
+          </div>
+        </div>
+
+        <div class='addInWin'id='userAddWin'>
+          <div class='addInWin-header'>Agregar Usuario<span class='addInWIn-close' onclick="hideUserAddWin();">X</span></div>
+          <div class='addInWin-content'>
+              <input type='email' placeholder="Correo electrónico">
+              <input type='text' placeholder="Contraseña">
+              <button id='userInBtn' onclick="addUser();">Agregar</button>
+          </div>
+        </div>
+
+        <div class='addInWin'id='transAddWin'>
+          <div class='addInWin-header'>Agregar Transaccion<span class='addInWIn-close' onclick="hideTransAddWin();">X</span></div>
+          <div class='addInWin-content'>
+              <input type='email' placeholder="ID de Usuario">
+              <input type='text' placeholder="Concepto">
+              <input type='text' placeholder="Valor">
+              <input type='date' placeholder="Fecha">
+              <input type='date' placeholder="Verificado">
+              <input type="text" placeholder="Notas">
+              <button id='transInBtn' onclick="addTrans();">Agregar</button>
           </div>
         </div>
 

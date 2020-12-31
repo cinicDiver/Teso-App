@@ -18,3 +18,11 @@ logout.addEventListener('click',e =>{
       window.location.href="./index.html"
     })
 });
+
+auth.onAuthStateChanged(user =>{
+  if(user){
+
+  }else{
+    window.location.href="./index.html";
+  }
+});

@@ -24,7 +24,6 @@ var inFunc = function(event) {
   const userIn = uName.value;
   const userPw = uPass.value;
   const auth = firebase.auth();
-  console.log("Ingresando al usuario: "+userIn);
   if (validateEmail(userIn)){
     const promise = auth.signInWithEmailAndPassword(userIn,userPw);
     promise.catch(e => {
@@ -45,11 +44,9 @@ window.addEventListener("keyup", e =>{
 
 
 firebase.auth().onAuthStateChanged(firebaseUser =>{
-  const userIn = uName.value;
   if(firebaseUser){
-    var nxtUrl = "./home.html?user="+userIn;
-    window.location.href=nxtUrl;
-  }else if (userIn != null){
+    window.location.href="./home.html";
+  }else{
     alert("No se encuentra loggeado.")
   }
 });
