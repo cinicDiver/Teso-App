@@ -59,6 +59,11 @@ if (isAdmin()){
     document.getElementById('cashIn').innerHTML=formatter.format(info.data()['ingresos']);
     document.getElementById('cashOut').innerHTML=formatter.format(info.data()['egresos']);
     document.getElementById('cashFlow').innerHTML=formatter.format(info.data()['flujo']);
+    if (info.data()[flujo]>0){
+      document.getElementById('cashFlow').style.color='#88ff88';
+    }else{
+      document.getElementById('cashFlow').style.color='#ff4d4d';
+    }
   })
 }
 
