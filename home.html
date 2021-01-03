@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-firestore.js"></script>
         <link rel="stylesheet" href="./styling/navbar.css">
         <link rel="stylesheet" href="./styling/main.css">
     </head>
@@ -40,31 +40,44 @@
           <div class='dashboard-resumen'>
             <div class='dashboard-resumen-estado' id='resumenDiv'>
               <div class='widget-heading'>Estado</div>
-              <div class='widget-subheading'>Afiliación:</div>
-              <div class='widget-content-string' id='afilState'></div>
-              <div class='widget-subheading'>Cuentas:</div>
-              <div class='widget-content-string' id='cashState'></div>
+              <div class='widget-container'>
+                <div class='widget-subheading'>Afiliación:</div>
+                <div class='widget-content-string' id='afilState'></div>
+              </div>
+              <div class='widget-container'>
+                <div class='widget-subheading'>Cuentas:</div>
+                <div class='widget-content-string' id='cashState'></div>
+              </div>
             </div>
             <div class='dashboard-resumen-caja' id='cajaDiv'>
               <div class='widget-heading'>Caja del club</div>
-              <div class='widget-subheading'>Ingresos:</div>
-              <div class='widget-content-string' id='cashIn'></div>
-              <div class='widget-subheading'>Egresos:</div>
-              <div class='widget-content-string' id='cashOut'></div>
-              <div class='widget-subheading'>Balance:</div>
-              <div class='widget-content-string' id='cashFLow'></div>
+              <div class='widget-container'>
+                <div class='widget-subheading'>Ingresos:</div>
+                <div class='widget-content-string' id='cashIn'></div>
+              </div>
+              <div class='widget-container'>
+                <div class='widget-subheading'>Egresos:</div>
+                <div class='widget-content-string' id='cashOut'></div>
+              </div>
+              <div class='widget-container'>
+                <div class='widget-subheading'>Balance:</div>
+                <div class='widget-content-string' id='cashFlow'></div>
+              </div>
             </div>
             <div class='dashboard-resumen-saldos' id='saldosDiv'>
               <div class='widget-heading'>Saldos</div>
-              <div class='widget-subheading'>A favor:</div>
-              <div class='widget-content-string' id='favorCash'></div>
-              <div class='widget-subheading'>En Contra:</div>
-              <div class='widget-content-string' id='againstCash'></div>
+              <div class='widget-container'>
+                <div class='widget-subheading'>A favor:</div>
+                <div class='widget-content-string' id='favorCash'></div>
+              </div>
+              <div class='widget-container'>
+                <div class='widget-subheading'>En Contra:</div>
+                <div class='widget-content-string' id='againstCash'></div>
+              </div>
             </div>
-            <div class='dashboard-resumen-acciones' id='accionesDiv'>
-              <div class='widget-heading'>Acciones</div>
-              <button onclick="showTransAddWin();">Agregar Transacciones</button>
-              <button onclick="showUserAddWin();">Agregar Usuarios</button>
+            <div class='dashboard-resumen-opciones' id='opcionesDiv'>
+              <div class='widget-heading'>Opciones</div>
+              <button>Cambiar Contraseña</button>
             </div>
           </div>
           <div class='dashboard-detalles'>
@@ -74,8 +87,14 @@
                 <div id='scroll-content'><table><th>ID</th><th>Usuario</th><th>Concepto</th><th>Valor</th><th>Registro</th><th>Validación</th><th>Notas</th></table></div>
               </div>
             </div>
-            <div class='dashboard-detalles-deudas'>
+            <div class='dashboard-detalles-deudas' id='deudasDiv'>
               <div class='widget-heading'>Deudas:</div>
+            </div>
+            <div class='dashboard-detalles-acciones' id='accionesDiv'>
+              <div class='widget-heading'>Acciones</div>
+              <button onclick="showTransAddWin();">Agregar Transacciones</button>
+              <button>Agregar Concepto</button>
+              <button onclick="showUserAddWin();">Agregar Usuarios</button>
             </div>
           </div>
         </div>
@@ -85,6 +104,19 @@
           <div class='addInWin-content'>
               <input type='email' placeholder="Correo electrónico" id='newUserEmail'>
               <input type='text' placeholder="Contraseña" id='newUserPassword'>
+              <input type='text' placeholder="Nombres" id='newUserName'>
+              <input type='text' placeholder="Apellidos" id='newUserLast'>
+              <div class='add-radio-div'>
+                <label for='state1'>Activo
+                  <input class='radiobtn' type='radio' name='state' id='state1' value='0' checked>
+                </label>
+                <label for='state2'>Inactivo
+                  <input class='radiobtn' type='radio' name='state' id='state2' value='1'>
+                </label>
+                <label for='state3'>Lesionado
+                  <input class='radiobtn' type='radio' name='state' id='state3' value='2'>
+                </label>
+              </div>
               <button id='userInBtn' onclick="addUser();">Agregar</button>
           </div>
         </div>
@@ -92,12 +124,12 @@
         <div class='addInWin'id='transAddWin'>
           <div class='addInWin-header'>Agregar Transaccion<span class='addInWIn-close' onclick="hideTransAddWin();">X</span></div>
           <div class='addInWin-content'>
-              <input type='text' placeholder="ID de Usuario">
-              <input type='text' placeholder="Concepto">
-              <input type='text' placeholder="Valor">
-              <input type='date' placeholder="Fecha">
-              <input type='date' placeholder="Verificado">
-              <input type="text" placeholder="Notas">
+              <input type='text' placeholder="ID de Usuario" id='userIDIn'>
+              <input type='text' placeholder="Concepto" id='conceptIDIn'>
+              <input type='text' placeholder="Valor" id='valueIn'>
+              <input type='date' placeholder="Fecha" id='dateIn'>
+              <input type='date' placeholder="Verificado" id='verifiedIn'>
+              <input type="text" placeholder="Notas" id='notesIn'>
               <button id='transInBtn' onclick="addTrans();">Agregar</button>
           </div>
         </div>

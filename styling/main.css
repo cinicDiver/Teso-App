@@ -36,7 +36,7 @@ th{
 }
 
 .hidden{
-    visibility: hidden;
+    display: none;
 }
 
 .widget-heading{
@@ -51,6 +51,15 @@ th{
     margin-bottom: 5px;
 }
 
+.widget-container{
+    display: inline-flex;
+}
+
+.widget-content-string{
+    color:grey;
+    padding-left: 10px;
+}
+
 .dashboard-resumen{
     box-shadow: 0 0 3px rgba(0,0,0,0.3);
     border-radius: 5px;
@@ -61,23 +70,22 @@ th{
 }
 .dashboard-resumen-estado{
     width:33%;
-
+    display: grid;
 }
 
 .dashboard-resumen-caja{
     width:33%;
-
+    display: grid;
 }
 
 .dashboard-resumen-saldos{
     width:33%;
-
+    display: grid;
 }
 
-.dashboard-resumen-acciones{
-    display: flex;
-    flex-direction: column;
-    width: 33%;
+.dashboard-resumen-opciones{
+    width:33%;
+    display:grid;
 }
 
 .dashboard-detalles{
@@ -91,6 +99,11 @@ th{
 
 .dashboard-detalles-transacciones{
     width:70%;
+}
+
+.dashboard-detalles-acciones{
+    display: block;
+    width: 33%;
 }
 
 #scroll-wrapper{
@@ -122,6 +135,17 @@ th{
     border-radius: 5px;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.035);
 
+}
+
+.add-radio-div{
+    padding: 5px;
+    display: inline;
+    font-size: 15px;
+}
+
+.radiobtn{
+    padding: 5px;
+    cursor: pointer;
 }
 
 .addInWin-header{
