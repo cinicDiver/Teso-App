@@ -12,7 +12,8 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
-const logout = document.getElementById("logOutB")
+const logout = document.getElementById("logOutB");
+
 logout.addEventListener('click',e =>{
     e.preventDefault();
     auth.signOut().then(()=>{

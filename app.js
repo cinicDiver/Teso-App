@@ -1,27 +1,23 @@
 var transAddWin = document.getElementById('transAddWin');
 var userAddWin = document.getElementById('userAddWin');
+var concAddWin = document.getElementById('concAddWin');
 
 function showTransAddWin(){
   transAddWin.style.display = 'block';
-}
-
-function hideTransAddWin(){
-  transAddWin.style.display = 'none';
 }
 
 function showUserAddWin(){
   userAddWin.style.display = 'block';
 }
 
-function hideUserAddWin(){
-  userAddWin.style.display = 'none';
+function showConcAddWin(){
+  concAddWin.style.display = 'block';
 }
 
 //Create Firestore instance
 var db = firebase.firestore();
 
 //Function checks if user is admin
-
 function isAdmin(){
   answ = true;
   try{
@@ -54,17 +50,39 @@ showHidePanes();
 
 //Fill main fields
 var formatter = new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'});
-if (isAdmin()){
-  db.collection('app').doc('caja').get().then(function (info){
-    document.getElementById('cashIn').innerHTML=formatter.format(info.data()['ingresos']);
-    document.getElementById('cashOut').innerHTML=formatter.format(info.data()['egresos']);
-    document.getElementById('cashFlow').innerHTML=formatter.format(info.data()['flujo']);
-    if (info.data()['flujo']>0){
-      document.getElementById('cashFlow').style.color='#88ff88';
-    }else{
-      document.getElementById('cashFlow').style.color='#ff4d4d';
-    }
-  })
+function fillFields(){
+  if (isAdmin()){
+    db.collection('app').doc('caja').get().then(function (info){
+      document.getElementById('cashIn').innerHTML=formatter.format(info.data()['ingresos']);
+      document.getElementById('cashOut').innerHTML=formatter.format(info.data()['egresos']);
+      document.getElementById('cashFlow').innerHTML=formatter.format(info.data()['flujo']);
+      if (info.data()['flujo']>0){
+        document.getElementById('cashFlow').style.color='#4dff4d';
+      }else{
+        document.getElementById('cashFlow').style.color='#ff4d4d';
+      }
+    })
+    db.collection('app').doc('contadores').get().then(function (info){
+      document.getElementById('userNum').innerHTML=info.data()['usuarios'];
+      document.getElementById('transNum').innerHTML=info.data()['transacciones'];
+      document.getElementById('concNum').innerHTML=info.data()['conceptos'];
+    })
+  }
+};
+fillFields();
+
+function hideTransAddWin(){
+  transAddWin.style.display = 'none';
+  fillFields();
+}
+
+function hideUserAddWin(){
+  userAddWin.style.display = 'none';
+  fillFields();
+}
+
+function hideConcAddWin(){
+  concAddWin.style.display = 'none';
 }
 
 //Get users and concepts for lists
@@ -72,6 +90,20 @@ var allUsers, allConcepts;
 function getUsers(){
   return db.collection('app').doc('identificadores').get().then(function (info){
     allUsers = info.data()['usuarios'];
+  }).then(function (){
+    var userList = document.getElementById('userList');
+    var userConcDiv = document.getElementById('cbx-div-conc');
+    for (var idUser in allUsers){
+      var newOpt = document.createElement('option');
+      newOpt.appendChild(document.createTextNode(allUsers[idUser]));
+      newOpt.value=idUser;
+      userList.appendChild(newOpt);
+      var newCbx = document.createElement('input')
+      newCbx.setAttribute('type','checkbox');
+      newCbx.value=idUser;
+      newCbx.insertAdjacentText('afterend',allUsers[idUser]);
+      userConcDiv.appendChild(newCbx);
+    }
   });
 };
 getUsers();
@@ -79,6 +111,14 @@ getUsers();
 function getConcepts(){
   return db.collection('app').doc('identificadores').get().then(function (info){
     allConcepts=info.data()['conceptos'];
+  }).then(function (){
+    var conceptList=document.getElementById('conceptList');
+    for (var concept in allConcepts){
+      var newOpt = document.createElement('option');
+      newOpt.appendChild(document.createTextNode(allConcepts[concept]));
+      newOpt.value=concept;
+      conceptList.appendChild(newOpt);
+    }
   });
 };
 getConcepts();
@@ -134,15 +174,15 @@ function addUser(){
     }).then(function (){
       userState=getUserState();
       db.collection('usuarios').doc(userId).set({
-        name: newUserName+newUserLast,
+        name: newUserName+" "+newUserLast,
         state:userState,
         email:newUserEmail
       }).then(function (){
         firebase.auth().createUserWithEmailAndPassword(newUserEmail,newUserPassword);
         firebase.auth().updateCurrentUser(adminAcc);
         var arrayKey = 'usuarios\.'+userId;
-        db.collection('permisos').update({
-          arrayKey:newUserEmail
+        db.collection('identificadores').update({
+          arrayKey:newUserName+" "+newUserLast
         });
         db.collection('app').doc('contadores').update({
           usuarios: firebase.firestore.FieldValue.increment(1)

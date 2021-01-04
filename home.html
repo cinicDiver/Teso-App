@@ -70,16 +70,26 @@
                 <div class='widget-subheading'>A favor:</div>
                 <div class='widget-content-string' id='favorCash'></div>
               </div>
-              <div class='widget-container'>
-                <div class='widget-subheading'>En Contra:</div>
-                <div class='widget-content-string' id='againstCash'></div>
-              </div>
             </div>
             <div class='dashboard-resumen-opciones' id='opcionesDiv'>
               <div class='widget-heading'>Opciones</div>
               <button>Cambiar Contraseña</button>
             </div>
-            <!--TODO: Create details resume for number of transactions and users-->
+            <div class='dashboard-resumen-detalles' id='detallesDiv'>
+              <div class='widget-heading'>Detalles</div>
+              <div class='widget-container'>
+                <div class='widget-subheading'>Usuarios:</div>
+                <div class='widget-content-string' id='userNum'></div>
+              </div>
+              <div class='widget-container'>
+                <div class='widget-subheading'>Transacciones:</div>
+                <div class='widget-content-string' id='transNum'></div>
+              </div>
+              <div class='widget-container'>
+                <div class='widget-subheading'>Conceptos:</div>
+                <div class='widget-content-string' id='concNum'></div>
+              </div>
+            </div>
           </div>
           <div class='dashboard-detalles'>
             <div class='dashboard-detalles-transacciones' >
@@ -93,10 +103,15 @@
             </div>
             <div class='dashboard-detalles-acciones' id='accionesDiv'>
               <div class='widget-heading'>Acciones</div>
-              <button onclick="showTransAddWin();">Agregar Transacciones</button>
-              <!--TODO: Add new concept methods and apply-->
-              <button>Agregar Concepto</button>
-              <button onclick="showUserAddWin();">Agregar Usuarios</button>
+              <div class='widget-subheading'>Agregar:</div>
+              <button>Administradores</button>
+              <button onclick="showConcAddWin();">Conceptos</button>
+              <button onclick="showTransAddWin();">Transacciones</button>
+              <button onclick="showUserAddWin();">Usuarios</button>
+              <div class='widget-subheading'>Editar:</div>
+              <button>Concepto</button>
+              <button>Saldo a favor</button>
+              <button>Usuario</button>
             </div>
           </div>
         </div>
@@ -126,13 +141,26 @@
         <div class='addInWin'id='transAddWin'>
           <div class='addInWin-header'>Agregar Transaccion<span class='addInWIn-close' onclick="hideTransAddWin();">X</span></div>
           <div class='addInWin-content'>
-              <input type='text' placeholder="ID de Usuario" id='userIDIn'>
-              <input type='text' placeholder="Concepto" id='conceptIDIn'>
+              <input list='userList' placeholder="ID de Usuario" id='userIDIn'>
+              <datalist id='usertList'></datalist>
+              <input list='conceptList' placeholder="Concepto" id='conceptIDIn'>
+              <datalist id='conceptList'></datalist>
               <input type='text' placeholder="Valor" id='valueIn'>
               <input type='date' placeholder="Fecha" id='dateIn'>
               <input type='date' placeholder="Verificado" id='verifiedIn'>
               <input type="text" placeholder="Notas" id='notesIn'>
               <button id='transInBtn' onclick="addTrans();">Agregar</button>
+          </div>
+        </div>
+
+        <div class='addInWin' id='concAddWin'>
+          <div class='addInWin-header'>Agregar Concepto<span class='addInWIn-close' onclick="hideConcAddWin();">X</span></div>
+          <div class='addInWin-content'>
+            <input type='text' placeholder="Nombre" id='concNameIn'>
+            <input type='text' placeholder="Valor" id='concVal'>
+            <input type='date' placeholder="fecha" id='concDate'>
+            <div class='cbx-div' id='cbx-div-conc'></div>
+            <button id='concInBtn'>Agregar</button>
           </div>
         </div>
         

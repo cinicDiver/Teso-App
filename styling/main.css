@@ -49,6 +49,7 @@ th{
     color:grey;
     margin-left: 5px;
     margin-bottom: 5px;
+    padding-top: 2px;
 }
 
 .widget-container{
@@ -86,6 +87,11 @@ th{
 .dashboard-resumen-opciones{
     width:33%;
     display:grid;
+}
+
+.dashboard-resumen-detalles{
+    width: 33%;
+    display: grid;
 }
 
 .dashboard-detalles{
