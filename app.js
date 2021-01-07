@@ -18,15 +18,18 @@ function showConcAddWin(){
 var db = firebase.firestore();
 
 //Function checks if user is admin
+let currentEmail = '';
 function isAdmin(){
-  answ = true;
-  try{
-    db.collection('app').doc('permisos').get()
-  }catch (error){
-    answ=false;
-  }
+  answ = false;
+  db.collection('app').doc('permisos').get().then((info)=>{
+    currentEmail=firebase.auth().currentUser.email;
+    if (currentEmail in info.data()){
+      answ=true;
+    }
+  })
   return answ;
 }
+const adminState = isAdmin();
 
 //Show or hide based on user
 function showHidePanes(){
@@ -36,7 +39,7 @@ function showHidePanes(){
     var saldosDiv = document.getElementById('saldosDiv');
     var deudasDiv = document.getElementById('deudasDiv');
     var opcionesDiv = document.getElementById('opcionesDiv');
-  if (!isAdmin()){
+  if (!adminState){
     cajaDiv.style.display='none';
     accionesDiv.style.display='none';
   }else{
@@ -51,7 +54,7 @@ showHidePanes();
 //Fill main fields
 var formatter = new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'});
 function fillFields(){
-  if (isAdmin()){
+  if (adminState){
     db.collection('app').doc('caja').get().then(function (info){
       document.getElementById('cashIn').innerHTML=formatter.format(info.data()['ingresos']);
       document.getElementById('cashOut').innerHTML=formatter.format(info.data()['egresos']);
@@ -66,6 +69,12 @@ function fillFields(){
       document.getElementById('userNum').innerHTML=info.data()['usuarios'];
       document.getElementById('transNum').innerHTML=info.data()['transacciones'];
       document.getElementById('concNum').innerHTML=info.data()['conceptos'];
+    })
+  }else{
+    db.collection('usuarios').where("email",'==',currentEmail).get().then(function (QuerySnapshot){
+      QuerySnapshot.forEach(function (doc){
+        console.log(doc.data());
+      })
     })
   }
 };
@@ -83,6 +92,7 @@ function hideUserAddWin(){
 
 function hideConcAddWin(){
   concAddWin.style.display = 'none';
+  fillFields();
 }
 
 //Get users and concepts for lists
@@ -167,6 +177,7 @@ function addUser(){
   var newUserPassword=document.getElementById('newUserPassword').value;
   var newUserName=document.getElementById('newUserName').value;
   var newUserLast=document.getElementById('newUserLast').value;
+  var newUserFavor=document.getElementById('newUserFavor').value;
   var adminAcc = firebase.auth().currentUser;
   var userId, userState;;
   if (validateEmail(newUserEmail)){
@@ -178,13 +189,13 @@ function addUser(){
         name: newUserName+" "+newUserLast,
         state:userState,
         email:newUserEmail,
-        favor:0
+        favor:newUserFavor
       }).then(function (){
         firebase.auth().createUserWithEmailAndPassword(newUserEmail,newUserPassword);
         firebase.auth().updateCurrentUser(adminAcc);
         var arrayKey = 'usuarios\.'+userId;
         db.collection('app').doc('identificadores').update({
-          arrayKey:newUserName+" "+newUserLast
+          [`usuarios.${userId}`]:newUserName+" "+newUserLast
         });
         db.collection('app').doc('contadores').update({
           usuarios: firebase.firestore.FieldValue.increment(1)

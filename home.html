@@ -123,15 +123,13 @@
               <input type='text' placeholder="Contraseña" id='newUserPassword'>
               <input type='text' placeholder="Nombres" id='newUserName'>
               <input type='text' placeholder="Apellidos" id='newUserLast'>
+              <input type='text' placeholder="Saldo a favor" id='newUserFavor'>
               <div class='add-radio-div'>
                 <label for='state1'>Activo
                   <input class='radiobtn' type='radio' name='state' id='state1' value='0' checked>
                 </label>
                 <label for='state2'>Inactivo
                   <input class='radiobtn' type='radio' name='state' id='state2' value='1'>
-                </label>
-                <label for='state3'>Lesionado
-                  <input class='radiobtn' type='radio' name='state' id='state3' value='2'>
                 </label>
               </div>
               <button id='userInBtn' onclick="addUser();">Agregar</button>
@@ -142,7 +140,7 @@
           <div class='addInWin-header'>Agregar Transaccion<span class='addInWIn-close' onclick="hideTransAddWin();">X</span></div>
           <div class='addInWin-content'>
               <input list='userList' placeholder="ID de Usuario" id='userIDIn'>
-              <datalist id='usertList'></datalist>
+              <datalist id='userList'></datalist>
               <input list='conceptList' placeholder="Concepto" id='conceptIDIn'>
               <datalist id='conceptList'></datalist>
               <input type='text' placeholder="Valor" id='valueIn'>
