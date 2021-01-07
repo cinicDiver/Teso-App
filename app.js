@@ -118,6 +118,7 @@ function getConcepts(){
       newOpt.appendChild(document.createTextNode(allConcepts[concept]));
       newOpt.value=concept;
       conceptList.appendChild(newOpt);
+      //TODO: add concept checkboxes if needed.
     }
   });
 };
@@ -170,24 +171,25 @@ function addUser(){
   var userId, userState;;
   if (validateEmail(newUserEmail)){
     return db.collection('app').doc('contadores').get().then(function (info){
-      userId="usr_"+("0000"+(info.data()['usuarios']+1)).slice(-4);
+      userId="U-"+("0000"+(info.data()['usuarios']+1)).slice(-4);
     }).then(function (){
       userState=getUserState();
       db.collection('usuarios').doc(userId).set({
         name: newUserName+" "+newUserLast,
         state:userState,
-        email:newUserEmail
+        email:newUserEmail,
+        favor:0
       }).then(function (){
         firebase.auth().createUserWithEmailAndPassword(newUserEmail,newUserPassword);
         firebase.auth().updateCurrentUser(adminAcc);
         var arrayKey = 'usuarios\.'+userId;
-        db.collection('identificadores').update({
+        db.collection('app').doc('identificadores').update({
           arrayKey:newUserName+" "+newUserLast
         });
         db.collection('app').doc('contadores').update({
           usuarios: firebase.firestore.FieldValue.increment(1)
         });
-        alert('User added.');
+        alert(`Usuario ${newUserName} ${newUserLast} (${userId}) agregado. \nCorreo: ${newUserEmail}. \nContraseña: ${newUserPassword}`);
       }).catch(function (e){
         alert('Error agrengado al usuario: '+e)
       });
