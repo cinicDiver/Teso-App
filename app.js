@@ -36,7 +36,7 @@ function showHidePanes(){
     var saldosDiv = document.getElementById('saldosDiv');
     var deudasDiv = document.getElementById('deudasDiv');
     var opcionesDiv = document.getElementById('opcionesDiv');
-  if (!isAdmin){
+  if (!isAdmin()){
     cajaDiv.style.display='none';
     accionesDiv.style.display='none';
   }else{
