@@ -17,39 +17,74 @@ function showConcAddWin(){
 //Create Firestore instance
 var db = firebase.firestore();
 
-//Function checks if user is admin
-let currentEmail = '';
-function isAdmin(){
-  answ = false;
-  db.collection('app').doc('permisos').get().then((info)=>{
-    currentEmail=firebase.auth().currentUser.email;
-    if (currentEmail in info.data()){
-      answ=true;
+//Get users and concepts for lists
+var allUsers, allConcepts;
+function getUsers(){
+  db.collection('app').doc('identificadores').get().then(function (info){
+    allUsers = info.data().usuarios;
+    var userList = document.getElementById('userList');
+    var userConcDiv = document.getElementById('cbx-div-conc');
+    for (var idUser in allUsers){
+      var newOpt = document.createElement('option');
+      newOpt.appendChild(document.createTextNode(allUsers[idUser]));
+      newOpt.value=idUser;
+      userList.appendChild(newOpt);
+      var newCbx = document.createElement('input')
+      newCbx.setAttribute('type','checkbox');
+      newCbx.value=idUser;
+      var chbTxt = document.createElement('p');
+      chbTxt.innerHTML=allUsers[idUser];
+      newCbx.insertAdjacentText('afterend',chbTxt);
+      userConcDiv.appendChild(newCbx);
+    }
+
+  });
+};
+
+function getConcepts(){
+  db.collection('app').doc('identificadores').get().then(function (info){
+    allConcepts=info.data().conceptos;
+    var conceptList=document.getElementById('conceptList');
+    for (var concept in allConcepts){
+      var newOpt = document.createElement('option');
+      newOpt.appendChild(document.createTextNode(allConcepts[concept]));
+      newOpt.value=concept;
+      conceptList.appendChild(newOpt);
     }
   })
-  return answ;
-}
-const adminState = isAdmin();
+};
 
 //Show or hide based on user
 function showHidePanes(){
-    var cajaDiv = document.getElementById('cajaDiv');
-    var accionesDiv = document.getElementById('accionesDiv');
-    var resumenDiv = document.getElementById('resumenDiv');
-    var saldosDiv = document.getElementById('saldosDiv');
-    var deudasDiv = document.getElementById('deudasDiv');
-    var opcionesDiv = document.getElementById('opcionesDiv');
-  if (!adminState){
-    cajaDiv.style.display='none';
-    accionesDiv.style.display='none';
-  }else{
+  var cajaDiv = document.getElementById('cajaDiv');
+  var accionesDiv = document.getElementById('accionesDiv');
+  var resumenDiv = document.getElementById('resumenDiv');
+  var saldosDiv = document.getElementById('saldosDiv');
+  var deudasDiv = document.getElementById('deudasDiv');
+  var opcionesDiv = document.getElementById('opcionesDiv');
+  var detallesDiv = document.getElementById('detallesDiv');
+  if (adminState){
+    cajaDiv.style.display='grid';
+    accionesDiv.style.display='grid';
+    detallesDiv.style.display='grid';
+    getConcepts();
+    getUsers();
+
     resumenDiv.style.display='none';
     saldosDiv.style.display='none';
     deudasDiv.style.display='none';
     opcionesDiv.style.display='none';
+  }else{
+    cajaDiv.style.display='none';
+    accionesDiv.style.display='none';
+    detallesDiv.style.display='none';
+
+    resumenDiv.style.display='grid';
+    saldosDiv.style.display='grid';
+    deudasDiv.style.display='grid';
+    opcionesDiv.style.display='grid';
   }
 };
-showHidePanes();
 
 //Fill main fields
 var formatter = new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'});
@@ -73,12 +108,40 @@ function fillFields(){
   }else{
     db.collection('usuarios').where("email",'==',currentEmail).get().then(function (QuerySnapshot){
       QuerySnapshot.forEach(function (doc){
+        console.log('Got this info from Firestore:')
         console.log(doc.data());
       })
-    })
+    }).catch(function (e){
+      alert(`Error adquiriendo información para ${currentEmail}: `,e);
+    }) 
   }
 };
-fillFields();
+
+//Function checks if user is admin
+let currentEmail = '';
+let currentUId='U-0000';
+let adminState=false;
+function isAdmin(){
+  let permisos;
+  db.collection('app').doc('permisos').get().then((info)=>{
+    currentEmail=firebase.auth().currentUser.email;
+    permisos=info.data().admins;
+    if (permisos.includes(currentEmail)){
+      adminState = true;
+    }
+    else{
+      db.collection('usuarios').where('email','==',currentEmail).get().then(function (info){
+        info.forEach(function (doc){
+          currentUId=doc.id;
+        });
+      });
+    }
+  }).then(function (){
+    showHidePanes();
+    fillFields();
+  });
+}
+isAdmin();
 
 function hideTransAddWin(){
   transAddWin.style.display = 'none';
@@ -95,52 +158,20 @@ function hideConcAddWin(){
   fillFields();
 }
 
-//Get users and concepts for lists
-var allUsers, allConcepts;
-function getUsers(){
-  return db.collection('app').doc('identificadores').get().then(function (info){
-    allUsers = info.data()['usuarios'];
-  }).then(function (){
-    var userList = document.getElementById('userList');
-    var userConcDiv = document.getElementById('cbx-div-conc');
-    for (var idUser in allUsers){
-      var newOpt = document.createElement('option');
-      newOpt.appendChild(document.createTextNode(allUsers[idUser]));
-      newOpt.value=idUser;
-      userList.appendChild(newOpt);
-      var newCbx = document.createElement('input')
-      newCbx.setAttribute('type','checkbox');
-      newCbx.value=idUser;
-      newCbx.insertAdjacentText('afterend',allUsers[idUser]);
-      userConcDiv.appendChild(newCbx);
-    }
-  });
-};
-getUsers();
-
-function getConcepts(){
-  return db.collection('app').doc('identificadores').get().then(function (info){
-    allConcepts=info.data()['conceptos'];
-  }).then(function (){
-    var conceptList=document.getElementById('conceptList');
-    for (var concept in allConcepts){
-      var newOpt = document.createElement('option');
-      newOpt.appendChild(document.createTextNode(allConcepts[concept]));
-      newOpt.value=concept;
-      conceptList.appendChild(newOpt);
-      //TODO: add concept checkboxes if needed.
-    }
-  });
-};
-getConcepts();
-
 //Handle infinite scroll
 var transWrapper = document.getElementById('scroll-wrapper');
 var transContent = document.getElementById('scroll-content');
 
 //Load transactions
 function loadTransactions(){
-  var transCall = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+  var transCall = {};
+  if(adminState){
+    db.collection('transacciones').get().limit(20).then(function (QuerySnapshot){
+      QuerySnapshot.forEach(function (doc){
+        transCall[doc.id]=doc.data();
+      });
+    });
+  }
   for (var trans in transCall){
     var newDiv = document.createElement('div');
     newDiv.innerHTML=trans;
@@ -193,7 +224,6 @@ function addUser(){
       }).then(function (){
         firebase.auth().createUserWithEmailAndPassword(newUserEmail,newUserPassword);
         firebase.auth().updateCurrentUser(adminAcc);
-        var arrayKey = 'usuarios\.'+userId;
         db.collection('app').doc('identificadores').update({
           [`usuarios.${userId}`]:newUserName+" "+newUserLast
         });
@@ -218,10 +248,11 @@ function addTrans(){
   var dateIn = document.getElementById('dateIn').value;
   var verifiedIn = document.getElementById('verifiedIn').value;
   var notesIn = document.getElementById('notesIn').value;
+  var anio = new Date().getFullYear()-2000;
   var transID;
 
   return db.collection('app').doc('contadores').get().then(function(info){
-    transID="T_"+("00000"+(info.data()['transacciones']+1)).slice(-5);
+    transID=`T${anio}_`+("00000"+(info.data()['transacciones']+1)).slice(-5);
     console.log(transID);
     console.log(userIDin);
     console.log(conceptIDIn);
@@ -258,3 +289,4 @@ function addTrans(){
     });
   })
 }
+showHidePanes();
