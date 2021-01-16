@@ -25,19 +25,22 @@ function getUsers(){
     var userList = document.getElementById('userList');
     var userConcDiv = document.getElementById('cbx-div-conc');
     for (var idUser in allUsers){
+      // Adding options to user list in transAddWin.
       var newOpt = document.createElement('option');
       newOpt.appendChild(document.createTextNode(allUsers[idUser]));
       newOpt.value=idUser;
       userList.appendChild(newOpt);
+      // Adding checkboxes to concept group in concAddWin.
       var newCbx = document.createElement('input')
       newCbx.setAttribute('type','checkbox');
+      newCbx.id=`cbx${idUser}`;
       newCbx.value=idUser;
-      var chbTxt = document.createElement('p');
-      chbTxt.innerHTML=allUsers[idUser];
-      newCbx.insertAdjacentText('afterend',chbTxt);
       userConcDiv.appendChild(newCbx);
+      var newLab = document.createElement('label');
+      newLab.innerHTML=allUsers[idUser];
+      userConcDiv.appendChild(newLab);
+      newLab.setAttribute('for',`cbx${idUser}`);
     }
-
   });
 };
 
@@ -46,6 +49,7 @@ function getConcepts(){
     allConcepts=info.data().conceptos;
     var conceptList=document.getElementById('conceptList');
     for (var concept in allConcepts){
+      // Adding options to user list in transAddWin.
       var newOpt = document.createElement('option');
       newOpt.appendChild(document.createTextNode(allConcepts[concept]));
       newOpt.value=concept;
@@ -108,8 +112,14 @@ function fillFields(){
   }else{
     db.collection('usuarios').where("email",'==',currentEmail).get().then(function (QuerySnapshot){
       QuerySnapshot.forEach(function (doc){
-        console.log('Got this info from Firestore:')
-        console.log(doc.data());
+        document.getElementById('favorCash').innerHTML=formatter.format(doc.data().favor);
+        if (doc.data().state==0){
+          document.getElementById('afilState').innerHTML='Activa';
+          document.getElementById('afilState').style.color='#4dff4d';
+        }else{
+          document.getElementById('afilState').innerHTML='Inactiva';
+          document.getElementById('afilState').style.color='#ff4d4d';
+        };
       })
     }).catch(function (e){
       alert(`Error adquiriendo información para ${currentEmail}: `,e);
@@ -169,6 +179,7 @@ function loadTransactions(){
     db.collection('transacciones').get().limit(20).then(function (QuerySnapshot){
       QuerySnapshot.forEach(function (doc){
         transCall[doc.id]=doc.data();
+        console.log(doc.data());
       });
     });
   }

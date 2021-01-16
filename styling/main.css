@@ -177,3 +177,11 @@ th{
       text-decoration: none;
       cursor: pointer;
   }
+
+.cbx-div{
+    height: 50px;
+    display: flex;
+    overflow-x: auto;
+    padding: 0px;
+}
+
